@@ -46,8 +46,8 @@ namespace SnagScript.BuiltInTypes
         
         protected override JavaScriptObject Execute(SourcePosition pos, Scope scope, JavaScriptObject thisObject)
         {
-            JavaScriptInteger sleeptime = scope.GetVariable("milliseconds", pos).ToInteger(pos);
-            Thread.Sleep(sleeptime.ToInt32());
+            JavaScriptInteger sleeptime = scope.GetVariable("milliseconds", pos).ToInteger();
+            Thread.Sleep(sleeptime.Value);
             return sleeptime;
         }
 

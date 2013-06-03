@@ -81,7 +81,7 @@ namespace SnagScript.ParserNodes
 
         public override JavaScriptObject Evaluate(Scope scope, JavaScriptObject thisObject)
         {
-            bool test = testCondition.Evaluate(scope,thisObject).ToBoolean(testCondition.Position).BooleanValue;
+            bool test = testCondition.Evaluate(scope,thisObject).ToBoolean().Value;
             if (test)
             {
                 return thenBlock.Evaluate(scope,thisObject);

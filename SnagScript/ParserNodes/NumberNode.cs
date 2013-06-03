@@ -42,6 +42,12 @@ namespace SnagScript.ParserNodes
             this.number = new JavaScriptInteger(number);
         }
 
+        public IntegerNode(SourcePosition pos, int number)
+            : base(pos)
+        {
+            this.number = new JavaScriptInteger(number);
+        }
+
         public override String ToString()
         {
             return number.ToString();

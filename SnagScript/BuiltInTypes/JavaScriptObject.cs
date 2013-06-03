@@ -33,7 +33,7 @@ namespace SnagScript.BuiltInTypes
      */
     public class JavaScriptObject : IComparable<JavaScriptObject>
     {
-        private Dictionary<String, JavaScriptObject> properties = new Dictionary<string, JavaScriptObject>();
+        private Dictionary<String, JavaScriptProperty> properties = new Dictionary<string, JavaScriptProperty>();
 
         public JavaScriptObject()
         {
@@ -44,7 +44,7 @@ namespace SnagScript.BuiltInTypes
         {
             if (properties.ContainsKey(name))
             {
-                return properties[name];
+                return properties[name].value;
             }
 
             throw new UnsetPropertyException(name, sourcePosition);
@@ -54,11 +54,11 @@ namespace SnagScript.BuiltInTypes
         {
             if (properties.ContainsKey(name))
             {
-                properties[name] = value;
+                properties[name].value = value;
             }
             else
             {
-                properties.Add(name, value);
+                properties.Add(name, new JavaScriptProperty(value));
             }
         }
 
@@ -66,7 +66,7 @@ namespace SnagScript.BuiltInTypes
         {
             if (this.HasFunction(functionName))
             {
-                return (Function)properties[functionName];
+                return (Function)properties[functionName].value;
             }
 
             throw new UnsetFunctionException(functionName, sourcePosition);
@@ -76,7 +76,7 @@ namespace SnagScript.BuiltInTypes
         {
             if (properties.ContainsKey(functionName))
             {
-                return properties[functionName] is Function;
+                return properties[functionName].value is Function;
             }
 
             return false;
@@ -87,45 +87,55 @@ namespace SnagScript.BuiltInTypes
             this.SetProperty(function.Name, function);
         }
 
-        public JavaScriptFloat ToFloat(SourcePosition pos)
+        public JavaScriptFloat ToFloat()
         {
             if (this is JavaScriptFloat)
             {
                 return (JavaScriptFloat)this;
             }
+            else if (this is JavaScriptInteger)
+            {
+                return new JavaScriptFloat(((JavaScriptInteger)this).Value);
+            }
             else
             {
                 return new JavaScriptFloat(this.ToString());
             }
-            throw new InvalidTypeException("Expecting number", pos);
         }
 
-        public JavaScriptInteger ToInteger(SourcePosition pos)
+        public JavaScriptInteger ToInteger()
         {
             if (this is JavaScriptInteger)
             {
                 return (JavaScriptInteger)this;
             }
+            else if (this is JavaScriptFloat)
+            {
+                return new JavaScriptInteger(((JavaScriptFloat)this).ToInt32());
+            }
             else
             {
                 return new JavaScriptInteger(this.ToString());
             }
-            throw new InvalidTypeException("Expecting number", pos);
         }
 
-        public JavaScriptBoolean ToBoolean(SourcePosition pos)
+        public JavaScriptBoolean ToBoolean()
         {
             if (this is JavaScriptBoolean)
             {
                 return (JavaScriptBoolean)this;
             }
-            throw new InvalidTypeException("Expecting boolean", pos);
+            else
+            {
+                return JavaScriptBoolean.ValueOf(this.ToString());
+            }
         }
 
         public virtual JavaScriptString ToJavaScriptString()
         {
             if (this is JavaScriptString)
                 return (JavaScriptString)this;
+
             // Implicit converting of types to string
             return new JavaScriptString(this.ToString());
         }

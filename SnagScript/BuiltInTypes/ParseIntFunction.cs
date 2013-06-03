@@ -45,7 +45,7 @@ namespace SnagScript.BuiltInTypes
 
         protected override JavaScriptObject Execute(SourcePosition pos, Scope scope, JavaScriptObject thisObject)
         {
-            return scope.GetVariable("string", pos).ToInteger(pos);
+            return scope.GetVariable("string", pos).ToInteger();
         }
 
         public override string Name

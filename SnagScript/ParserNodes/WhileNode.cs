@@ -70,7 +70,7 @@ namespace SnagScript.ParserNodes
         public override JavaScriptObject Evaluate(Scope scope, JavaScriptObject thisObject)
         {
             JavaScriptObject ret = null;
-            while (testCondition.Evaluate(scope, thisObject).ToBoolean(testCondition.Position).BooleanValue)
+            while (testCondition.Evaluate(scope, thisObject).ToBoolean().Value)
             {
                 ret = loopBody.Evaluate(scope, thisObject);
             }

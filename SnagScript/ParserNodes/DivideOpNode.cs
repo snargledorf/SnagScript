@@ -39,9 +39,19 @@ namespace SnagScript.ParserNodes
 
         public override JavaScriptObject Evaluate(Scope scope, JavaScriptObject thisObject)
         {
-            JavaScriptFloat left = this.LeftOperand.Evaluate(scope, thisObject).ToFloat(this.LeftOperand.Position);
-            JavaScriptFloat right = this.LeftOperand.Evaluate(scope, thisObject).ToFloat(this.RightOperand.Position);
-            return left.Divide(right);
+            JavaScriptObject left = this.LeftOperand.Evaluate(scope, thisObject);
+            JavaScriptFloat right = this.LeftOperand.Evaluate(scope, thisObject).ToFloat();
+
+            if (left is JavaScriptInteger)
+            {
+                return ((JavaScriptInteger)left).Divide(right.ToInteger());
+            }
+            else if (left is JavaScriptFloat)
+            {
+                return ((JavaScriptFloat)left).Divide(right);
+            }
+
+            throw new InvalidTypeException("Expects a number", this.Position);
         }
     }
 }

@@ -39,13 +39,13 @@ namespace SnagScript.ParserNodes
 
         public override JavaScriptObject Evaluate(Scope scope, JavaScriptObject thisObject)
         {
-            JavaScriptBoolean left = this.LeftOperand.Evaluate(scope, thisObject).ToBoolean(this.LeftOperand.Position);
-            if (!left.BooleanValue)
+            JavaScriptBoolean left = this.LeftOperand.Evaluate(scope, thisObject).ToBoolean();
+            if (!left.Value)
             {
                 // Short circuit the operator, since false && test == false
                 return left;
             }
-            JavaScriptBoolean right = this.RightOperand.Evaluate(scope, thisObject).ToBoolean(this.RightOperand.Position);
+            JavaScriptBoolean right = this.RightOperand.Evaluate(scope, thisObject).ToBoolean();
             return left.And(right);
         }
     }

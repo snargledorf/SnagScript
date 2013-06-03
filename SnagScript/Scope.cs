@@ -24,7 +24,7 @@ namespace SnagScript
 
         public void SetVariable(string name, JavaScriptObject value)
         {
-            if (parentscope == null)
+            if (parentscope == null || this.HasVariable(name))
             {
                 this.SetLocalVariable(name, value);
             }

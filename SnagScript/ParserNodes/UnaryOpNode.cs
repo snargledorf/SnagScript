@@ -46,24 +46,24 @@ namespace SnagScript.ParserNodes
         /**
          * Return operator symbol
          */
-        public String GetName()
+        public String Name
         {
-            return oper;
+            get { return oper; }
         }
 
         /**
          * Return operand
          */
-        public Node GetOperand()
+        public Node Operand
         {
-            return operand;
+            get { return operand; }
         }
 
         public override String ToString()
         {
             StringBuilder sb = new StringBuilder();
             sb.Append('(');
-            sb.Append(GetName());
+            sb.Append(this.Name);
             sb.Append(' ');
             sb.Append(operand.ToString());
             sb.Append(')');

@@ -145,11 +145,35 @@ namespace SnagScript
                     }
                 case '+':
                     {
-                        return CreateToken(TokenType.PLUS, '+');
+                        char char2 = LookAhead(2);
+                        if (char2 == '+')
+                        {
+                            return CreateToken(TokenType.PLUS_PLUS, "++");
+                        }
+                        else if (char2 == '=')
+                        {
+                            return CreateToken(TokenType.PLUS_ASSIGN, "+=");
+                        }
+                        else
+                        {
+                            return CreateToken(TokenType.PLUS, '+');
+                        }
                     }
                 case '-':
                     {
-                        return CreateToken(TokenType.MINUS, '-');
+                        char char2 = LookAhead(2);
+                        if (char2 == '-')
+                        {
+                            return CreateToken(TokenType.MINUS_MINUS, "--");
+                        }
+                        else if (char2 == '=')
+                        {
+                            return CreateToken(TokenType.MINUS_ASSIGN, "-=");
+                        }
+                        else
+                        {
+                            return CreateToken(TokenType.MINUS, '-');
+                        }
                     }
                 case '*':
                     {
@@ -350,7 +374,7 @@ namespace SnagScript
             }
             if (isDecimal)
             {
-                return new Token(pos, TokenType.DECIMAL, sb.ToString());
+                return new Token(pos, TokenType.FLOAT, sb.ToString());
             }
             else
             {
@@ -397,13 +421,13 @@ namespace SnagScript
             {
                 return new Token(pos, TokenType.WHILE, word);
             }
-            else if (word.Equals("foreach"))
+            else if (word.Equals("for"))
             {
-                return new Token(pos, TokenType.FOR_EACH, word);
+                return new Token(pos, TokenType.FOR, word);
             }
             else if (word.Equals("as"))
             {
-                return new Token(pos, TokenType.AS, word);
+                return new Token(pos, TokenType.IN, word);
             }
             else if (word.Equals("function"))
             {

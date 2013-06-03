@@ -51,8 +51,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BuiltInTypes\ClearScreenFunction.cs" />
+    <Compile Include="BuiltInTypes\JavaScriptProperty.cs" />
     <Compile Include="BuiltInTypes\ReadKeyFunction.cs" />
     <Compile Include="BuiltInTypes\JavaScriptError.cs" />
+    <Compile Include="ParserNodes\ForLoopNode.cs" />
     <Compile Include="ParserNodes\CatchNode.cs" />
     <Compile Include="UnsetFunctionException.cs" />
     <Compile Include="ParserNodes\FunctionDeclarationNode.cs" />
@@ -103,7 +105,6 @@
     <Compile Include="ParserNodes\DivideOpNode.cs" />
     <Compile Include="ParserNodes\EqualsOpNode.cs" />
     <Compile Include="ParserNodes\FalseNode.cs" />
-    <Compile Include="ParserNodes\ForeachNode.cs" />
     <Compile Include="ParserNodes\FunctionCallNode.cs" />
     <Compile Include="ParserNodes\GreaterEqualOpNode.cs" />
     <Compile Include="ParserNodes\GreaterThenOpNode.cs" />

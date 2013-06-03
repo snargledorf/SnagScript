@@ -40,7 +40,7 @@ namespace SnagScript.BuiltInTypes
             this.value = value;
         }
 
-        public bool BooleanValue
+        public bool Value
         {
             get
             {
@@ -89,6 +89,11 @@ namespace SnagScript.BuiltInTypes
         public override bool Equals(Object obj)
         {
             return this == obj;
+        }
+
+        public static JavaScriptBoolean ValueOf(string str)
+        {
+            return JavaScriptBoolean.ValueOf(Boolean.Parse(str));
         }
     }
 }

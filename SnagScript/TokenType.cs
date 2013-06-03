@@ -31,19 +31,12 @@ namespace SnagScript
     {
         NONE,
         COMMENT, ASSIGN,
-        PLUS, MINUS, MULTIPLY, DIVIDE, MOD, POWER, // Math operators
+        PLUS, MINUS, MULTIPLY, DIVIDE, MOD, POWER, PLUS_PLUS, PLUS_ASSIGN, MINUS_MINUS, MINUS_ASSIGN, // Math operators
         LPAREN, RPAREN, LBRACE, RBRACE, LBRACKET, RBRACKET, COMMA, COLON, END_STATEMENT, PERIOD,
         NOT, AND, OR, // Boolean operators
         LESS_THEN, LESS_EQUAL, EQUAL, GREATER_EQUAL, GREATER_THEN, NOT_EQUAL, // Comparison operators
-        INTEGER, STRING_LITERAL, TRUE, FALSE, // Constant types
-        IF, ELSE, WHILE, FOR_EACH, AS, // Control structures
-        VARIABLE, VAR, FUNCTION, RETURN, // Other keywords        
-        NEW,
-        THIS,
-        PROTOTYPE,
-        DECIMAL,
-        TRY,
-        CATCH,
-        FINALLY,
+        INTEGER, FLOAT, STRING_LITERAL, TRUE, FALSE, // Constant types
+        IF, ELSE, WHILE, FOR, IN, TRY, CATCH, FINALLY, // Control structures
+        VARIABLE, VAR, FUNCTION, RETURN, NEW, THIS, // Other keywords
     }
 }

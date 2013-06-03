@@ -71,7 +71,7 @@ namespace SnagScript.ParserNodes
 
         private int GetIndex(Scope scope, JavaScriptObject thisObject)
         {
-            return keyNode.Evaluate(scope, thisObject).ToInteger(keyNode.Position).ToInt32();
+            return keyNode.Evaluate(scope, thisObject).ToInteger().Value;
         }
 
         public override String ToString()

@@ -103,6 +103,19 @@ namespace SnagScript
                 Match(TokenType.END_STATEMENT);
                 return funcCall;
             }
+            else if (type == TokenType.VARIABLE &&
+
+                ((LookAhead(2) == TokenType.PLUS && LookAhead(3) == TokenType.PLUS) || // i++;
+
+                (LookAhead(2) == TokenType.MINUS) && LookAhead(3) == TokenType.MINUS) || // i--;
+
+                ((LookAhead(2) == TokenType.PLUS || LookAhead(2) == TokenType.MINUS) && // i+=n; or i-=n;
+                    LookAhead(3) == TokenType.EQUAL))
+            {
+                Node selfExpression = Expression();
+                Match(TokenType.END_STATEMENT);
+                return selfExpression;
+            }
             else if (type == TokenType.VARIABLE || type == TokenType.VAR)
             {
                 return VariableDeclaration();
@@ -122,9 +135,9 @@ namespace SnagScript
             {
                 return While();
             }
-            else if (type == TokenType.FOR_EACH)
+            else if (type == TokenType.FOR)
             {
-                return Foreach();
+                return For();
             }
             else if (type == TokenType.FUNCTION)
             {
@@ -295,29 +308,38 @@ namespace SnagScript
             return new WhileNode(pos, test, loopBlock);
         }
 
-        private Node Foreach()
+        private Node For()
         {
-            // FOREACH! LPAREN! VARIABLE! AS! VARIABLE! (^COLON VARIABLE!) RPAREN!
-            // LBRACE! block RBRACE!
-            SourcePosition pos = Match(TokenType.FOR_EACH).Position;
+            // FOR! LPARAN! statement? END_STATEMENT! (BOOLEAN EXPRESSION)! END_STATEMENT! expression? RPARAN!
+            // LBRACE! block RBRACH!
+            SourcePosition pos = Match(TokenType.FOR).Position;
             Match(TokenType.LPAREN);
-            Token t = Match(TokenType.VARIABLE);
-            VariableNode onEach = new VariableNode(t.Position, t.Text);
-            Match(TokenType.AS);
-            t = Match(TokenType.VARIABLE);
-            VariableNode value = new VariableNode(t.Position, t.Text);
-            Node asValue = value;
-            if (LookAhead(1) == TokenType.COLON)
+           
+            Node initialization = null;
+            if (LookAhead(1) != TokenType.END_STATEMENT)
             {
-                SourcePosition entryPos = Match(TokenType.COLON).Position;
-                VariableNode key = value;
-                t = Match(TokenType.VARIABLE);
-                value = new VariableNode(t.Position, t.Text);
-                //asValue = new ZemDictionaryEntryNode(entryPos, key, value);
+                initialization = Statement();
             }
+            if (LookAhead(1) == TokenType.END_STATEMENT)
+            {
+                Match(TokenType.END_STATEMENT);
+            }
+
+            Node condition = Expression();
+
+            Match(TokenType.END_STATEMENT);
+
+            Node final = null;
+            if (LookAhead(1) != TokenType.RPAREN)
+            {
+                final = Expression();
+            }
+
             Match(TokenType.RPAREN);
+
             Node loopBlock = Block();
-            return new ForeachNode(pos, onEach, asValue, loopBlock);
+
+            return new ForLoopNode(pos, initialization, condition, final, loopBlock);            
         }
 
         private Node Array()
@@ -488,19 +510,55 @@ namespace SnagScript
         {
             // term ((PLUS^|MINUS^) term)*
             Node termExpression = Term();
-            while (LookAhead(1) == TokenType.PLUS ||
-                    LookAhead(1) == TokenType.MINUS)
+            TokenType next = LookAhead(1);
+            while (next == TokenType.PLUS ||
+                    next == TokenType.PLUS_PLUS ||
+                    next == TokenType.PLUS_ASSIGN ||
+                    next == TokenType.MINUS ||
+                    next == TokenType.MINUS_MINUS ||
+                    next == TokenType.MINUS_ASSIGN)
             {
-                if (LookAhead(1) == TokenType.PLUS)
+                if (next == TokenType.PLUS)
                 {
-                    termExpression = new AddOpNode(Match(TokenType.PLUS).Position,
-                        termExpression, Term());
+                    termExpression = new AddOpNode(Match(TokenType.PLUS).Position, termExpression, Term());
                 }
-                else if (LookAhead(1) == TokenType.MINUS)
+                else if (next == TokenType.PLUS_PLUS) 
                 {
-                    termExpression = new SubtractOpNode(Match(TokenType.MINUS).Position,
-                        termExpression, Term());
+                    Node increment = new IntegerNode(Match(TokenType.PLUS_PLUS).Position, 1);
+                    Node addNode = new AddOpNode(increment.Position, termExpression, increment);
+                    termExpression = new AssignNode(termExpression.Position, termExpression, addNode, false); 
+                } 
+                else if (next == TokenType.PLUS_ASSIGN) 
+                {
+                    Token plusAssign = Match(TokenType.PLUS_ASSIGN);
+                    Node increment = Expression();
+                    Node addNode = new AddOpNode(plusAssign.Position, termExpression, increment);
+                    termExpression =
+                        new AssignNode(termExpression.Position, termExpression, addNode, false);
+
                 }
+                else if (next == TokenType.MINUS)
+                {
+                    termExpression = 
+                        new SubtractOpNode(Match(TokenType.MINUS).Position, termExpression, Term());
+                } 
+                else if (next == TokenType.MINUS_MINUS) 
+                {
+                    Node deincrement = new IntegerNode(Match(TokenType.MINUS_MINUS).Position, 1);
+                    Node subtractNode = new SubtractOpNode(deincrement.Position, termExpression, deincrement);
+                    termExpression =
+                        new AssignNode(termExpression.Position, termExpression, subtractNode, false);
+                } 
+                else if (next == TokenType.MINUS_ASSIGN) 
+                {
+                    Token minusAssign = Match(TokenType.MINUS_ASSIGN);
+                    Node deincrement = Expression();
+                    Node subtractNode = new SubtractOpNode(minusAssign.Position, termExpression, deincrement);
+                    termExpression =
+                        new AssignNode(termExpression.Position, termExpression, subtractNode, false);
+                }
+
+                next = LookAhead(1);
             }
             return termExpression;
         }
@@ -623,9 +681,9 @@ namespace SnagScript
                 Token t = Match(TokenType.INTEGER);
                 return new IntegerNode(t.Position, t.Text);
             }
-            else if (type == TokenType.DECIMAL)
+            else if (type == TokenType.FLOAT)
             {
-                Token t = Match(TokenType.DECIMAL);
+                Token t = Match(TokenType.FLOAT);
                 return new FloatNode(t.Position, t.Text);
             }
             else if (type == TokenType.TRUE)

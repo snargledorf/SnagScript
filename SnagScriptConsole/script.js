@@ -1,7 +1,16 @@
 function Driver(name, age) {
     this.Name = name;
     this.Age = age;
-    this.isOldEnoughToDrive = function() {
+    this.isOldEnoughToDrive = function () {
+
+        printLine("Determining if driver is of legal age...");
+        for (var i = 1; i <= 10; i++) {
+            printLine(i);
+            pause(500);
+        }
+
+        clearScreen();
+
         return this.Age >= 16;
     };
 }

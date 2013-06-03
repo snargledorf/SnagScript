@@ -40,7 +40,7 @@ namespace SnagScript.ParserNodes
 
         public override JavaScriptObject Evaluate(Scope scope, JavaScriptObject thisObject)
         {
-            JavaScriptBoolean operand = GetOperand().Evaluate(scope, thisObject).ToBoolean(GetOperand().Position);
+            JavaScriptBoolean operand = this.Operand.Evaluate(scope, thisObject).ToBoolean();
             return operand.Not();
         }
     }

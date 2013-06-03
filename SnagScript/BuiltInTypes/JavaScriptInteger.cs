@@ -28,15 +28,15 @@ namespace SnagScript.BuiltInTypes
 {
     public sealed class JavaScriptInteger : JavaScriptObject
     {
-        private Int64 value;
+        private Int32 value;
 
         public JavaScriptInteger(String value)
-            : this(Int64.Parse(value))
+            : this(Int32.Parse(value))
         {
 
         }
 
-        public JavaScriptInteger(Int64 value)
+        public JavaScriptInteger(Int32 value)
         {
             this.value = value;
         }
@@ -68,7 +68,7 @@ namespace SnagScript.BuiltInTypes
 
         public JavaScriptInteger Power(JavaScriptInteger n)
         {
-            return new JavaScriptInteger(Convert.ToInt64(Math.Pow(value, n.value)));
+            return new JavaScriptInteger(Convert.ToInt32(Math.Pow(value, n.value)));
         }
 
         public JavaScriptInteger Negate()
@@ -97,9 +97,9 @@ namespace SnagScript.BuiltInTypes
             return CompareTo((JavaScriptObject)obj) == 0;
         }
 
-        public int ToInt32()
+        public Int32 Value
         {
-            return Convert.ToInt32(this.value);
+            get { return this.value; }
         }
     }
 }
