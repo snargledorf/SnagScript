@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FB470B75-C8B7-46D9-B6AC-5C60726B8557}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>SnagScript</RootNamespace>
+    <AssemblyName>SnagScript</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Externalconsole>true</Externalconsole>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Externalconsole>true</Externalconsole>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <Optimize>true</Optimize>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BuiltInTypes\ClearScreenFunction.cs" />
+    <Compile Include="BuiltInTypes\ReadKeyFunction.cs" />
+    <Compile Include="BuiltInTypes\JavaScriptError.cs" />
+    <Compile Include="ParserNodes\CatchNode.cs" />
+    <Compile Include="UnsetFunctionException.cs" />
+    <Compile Include="ParserNodes\FunctionDeclarationNode.cs" />
+    <Compile Include="ParserNodes\NewExpressionNode.cs" />
+    <Compile Include="ParserNodes\ObjectNode.cs" />
+    <Compile Include="ParserNodes\PropertyTreeNode.cs" />
+    <Compile Include="Scope.cs" />
+    <Compile Include="ParserNodes\FloatNode.cs" />
+    <Compile Include="BuiltInTypes\ParseFloatFunction.cs" />
+    <Compile Include="BuiltInTypes\FunctionArguments.cs" />
+    <Compile Include="BuiltInTypes\JavaScriptInteger.cs" />
+    <Compile Include="BuiltInTypes\ParseIntFunction.cs" />
+    <Compile Include="BuiltInTypes\PauseFunction.cs" />
+    <Compile Include="ParserNodes\PropertyNode.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Interpreter.cs" />
+    <Compile Include="InvalidTypeException.cs" />
+    <Compile Include="BuiltInTypes\ReadLineFunction.cs" />
+    <Compile Include="ParserNodes\ThisNode.cs" />
+    <Compile Include="ParserNodes\TryCatchFinallyNode.cs" />
+    <Compile Include="UndefienedVariableException.cs" />
+    <Compile Include="InterpreterException.cs" />
+    <Compile Include="SourcePosition.cs" />
+    <Compile Include="UnsetPropertyException.cs" />
+    <Compile Include="UnsetVariableException.cs" />
+    <Compile Include="TooFewArgumentsException.cs" />
+    <Compile Include="BuiltInTypes\JavaScriptObject.cs" />
+    <Compile Include="BuiltInTypes\ArrayPushFunction.cs" />
+    <Compile Include="BuiltInTypes\Function.cs" />
+    <Compile Include="BuiltInTypes\LenFunction.cs" />
+    <Compile Include="BuiltInTypes\Parameter.cs" />
+    <Compile Include="BuiltInTypes\PrintFunction.cs" />
+    <Compile Include="BuiltInTypes\PrintLineFunction.cs" />
+    <Compile Include="BuiltInTypes\ReturnException.cs" />
+    <Compile Include="BuiltInTypes\UserFunction.cs" />
+    <Compile Include="BuiltInTypes\JavaScriptArray.cs" />
+    <Compile Include="BuiltInTypes\JavaScriptBoolean.cs" />
+    <Compile Include="BuiltInTypes\JavaScriptFloat.cs" />
+    <Compile Include="BuiltInTypes\JavaScriptString.cs" />
+    <Compile Include="ParserNodes\Node.cs" />
+    <Compile Include="ParserNodes\AddOpNode.cs" />
+    <Compile Include="ParserNodes\AndOpNode.cs" />
+    <Compile Include="ParserNodes\ArrayNode.cs" />
+    <Compile Include="ParserNodes\AssignmentExpressionNode.cs" />
+    <Compile Include="ParserNodes\BinaryOpNode.cs" />
+    <Compile Include="ParserNodes\BlockNode.cs" />
+    <Compile Include="ParserNodes\ConcatOpNode.cs" />
+    <Compile Include="ParserNodes\DivideOpNode.cs" />
+    <Compile Include="ParserNodes\EqualsOpNode.cs" />
+    <Compile Include="ParserNodes\FalseNode.cs" />
+    <Compile Include="ParserNodes\ForeachNode.cs" />
+    <Compile Include="ParserNodes\FunctionCallNode.cs" />
+    <Compile Include="ParserNodes\GreaterEqualOpNode.cs" />
+    <Compile Include="ParserNodes\GreaterThenOpNode.cs" />
+    <Compile Include="ParserNodes\IArithmeticOpNode.cs" />
+    <Compile Include="ParserNodes\IBooleanOpNode.cs" />
+    <Compile Include="ParserNodes\IfNode.cs" />
+    <Compile Include="ParserNodes\LessEqualOpNode.cs" />
+    <Compile Include="ParserNodes\LessThenOpNode.cs" />
+    <Compile Include="ParserNodes\LookupNode.cs" />
+    <Compile Include="ParserNodes\ModOpNode.cs" />
+    <Compile Include="ParserNodes\MultiplyOpNode.cs" />
+    <Compile Include="ParserNodes\NegateOpNode.cs" />
+    <Compile Include="ParserNodes\NotEqualsOpNode.cs" />
+    <Compile Include="ParserNodes\NotOpNode.cs" />
+    <Compile Include="ParserNodes\NumberNode.cs" />
+    <Compile Include="ParserNodes\OrOpNode.cs" />
+    <Compile Include="ParserNodes\PowerOpNode.cs" />
+    <Compile Include="ParserNodes\RelationalOpNode.cs" />
+    <Compile Include="ParserNodes\ReturnNode.cs" />
+    <Compile Include="ParserNodes\Program.cs" />
+    <Compile Include="ParserNodes\StringNode.cs" />
+    <Compile Include="ParserNodes\SubtractOpNode.cs" />
+    <Compile Include="ParserNodes\TrueNode.cs" />
+    <Compile Include="ParserNodes\UnaryOpNode.cs" />
+    <Compile Include="ParserNodes\VariableNode.cs" />
+    <Compile Include="ParserNodes\WhileNode.cs" />
+    <Compile Include="Lexer.cs" />
+    <Compile Include="InvalidOperatorException.cs" />
+    <Compile Include="LexerException.cs" />
+    <Compile Include="Parser.cs" />
+    <Compile Include="ParserException.cs" />
+    <Compile Include="PeekReader.cs" />
+    <Compile Include="Token.cs" />
+    <Compile Include="TokenBuffer.cs" />
+    <Compile Include="TokenType.cs" />
+    <Compile Include="TypeMismatchException.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup />
+</Project>
