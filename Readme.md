@@ -16,8 +16,9 @@ Currently the SnagScript supports:
     * try/catch/finally
     * if/then/else
     * while loop
-    * foreach loop (zemscript syntax)
+    * for loop
 * Functions
+    * Declared and Expression
     * Anonymous and Named
     * Return statements
 * Constructors / Classes
