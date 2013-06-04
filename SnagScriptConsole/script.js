@@ -1,7 +1,8 @@
-function Driver(name, age) {
+
+function Driver(name, age) { // Named function declaration
     this.Name = name;
     this.Age = age;
-    this.isOldEnoughToDrive = function () {
+    this.isOldEnoughToDrive = function () { // Anonymous function expression
 
         printLine("Determining if driver is of legal age...");
         for (var i = 1; i <= 10; i++) {
@@ -14,6 +15,10 @@ function Driver(name, age) {
         return this.Age >= 16;
     };
 }
+
+printLine("The Driver function has " + Driver.length + " arguments"); // Default properties
+print("Press any key to continue...");
+readKey();
 
 exit = false;
 while (exit == false) {

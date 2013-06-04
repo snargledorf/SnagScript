@@ -124,7 +124,7 @@
     <Compile Include="ParserNodes\PowerOpNode.cs" />
     <Compile Include="ParserNodes\RelationalOpNode.cs" />
     <Compile Include="ParserNodes\ReturnNode.cs" />
-    <Compile Include="ParserNodes\Program.cs" />
+    <Compile Include="ParserNodes\ScriptExecutable.cs" />
     <Compile Include="ParserNodes\StringNode.cs" />
     <Compile Include="ParserNodes\SubtractOpNode.cs" />
     <Compile Include="ParserNodes\TrueNode.cs" />

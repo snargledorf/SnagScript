@@ -41,5 +41,10 @@ namespace SnagScript.ParserNodes
         {
             return thisObject.GetProperty(this.Name, this.Position);
         }
+
+        public override string ToString()
+        {
+            return this.Name;
+        }
     }
 }

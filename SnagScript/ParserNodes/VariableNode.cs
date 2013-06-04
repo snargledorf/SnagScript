@@ -32,7 +32,7 @@ namespace SnagScript.ParserNodes
      *
      * @author <a href="mailto:grom@zeminvaders.net">Cameron Zemek</a>
      */
-    public class VariableNode : ObjectNode
+    public class VariableNode : Node
     {
         private String name;
 

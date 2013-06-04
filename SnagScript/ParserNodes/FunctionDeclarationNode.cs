@@ -47,7 +47,8 @@ namespace SnagScript.ParserNodes
         {
             List<Parameter> resultParameters = ProcessParameters(scope, thisObject);
             UserFunction function = new UserFunction(resultParameters, body, this.Name);
-            scope.SetFunction(function);
+            if (function.Name.Length > 0)
+                scope.SetFunction(function);
             return function;
         }
 

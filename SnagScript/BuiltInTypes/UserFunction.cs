@@ -34,7 +34,7 @@ namespace SnagScript.BuiltInTypes
      */
     public class UserFunction : Function
     {
-        protected List<Parameter> parameters;
+        protected List<Parameter> arguments;
         protected Node body;
 
         private string name;
@@ -43,11 +43,14 @@ namespace SnagScript.BuiltInTypes
             get { return name; }
         }
 
-        public UserFunction(List<Parameter> parameters, Node body, String name)
+        public UserFunction(List<Parameter> arguments, Node body, String name)
         {
-            this.parameters = parameters;
+            this.arguments = arguments;
             this.body = body;
             this.name = name;
+
+            // Reset the 'length' property since the Function constructor will have set it to 0
+            this.SetProperty("length", new JavaScriptInteger(this.arguments.Count));
         }
 
         public Node Body
@@ -57,17 +60,21 @@ namespace SnagScript.BuiltInTypes
 
         public override int ArgumentCount
         {
-            get { return parameters.Count; }
+            get { 
+                if (arguments != null) // Need to check for null since the Function constructor accesses this property
+                    return arguments.Count;
+                return 0;
+            }
         }
 
         public override String GetArgumentName(int index)
         {
-            return parameters[index].Name;
+            return arguments[index].Name;
         }
 
         public override JavaScriptObject GetDefaultValue(int index)
         {
-            return parameters[index].GetDefaultValue();
+            return arguments[index].GetDefaultValue();
         }
 
         protected override JavaScriptObject Execute(SourcePosition pos, Scope scope, JavaScriptObject thisObject)
@@ -84,7 +91,7 @@ namespace SnagScript.BuiltInTypes
 
         public UserFunction Clone()
         {
-            return new UserFunction(this.parameters, this.body, this.Name);
+            return new UserFunction(this.arguments, this.body, this.Name);
         }
     }
 }

@@ -32,6 +32,11 @@ namespace SnagScript.BuiltInTypes
      */
     public abstract class Function : JavaScriptObject
     {
+        public Function()
+        {
+            this.SetProperty("call", this);
+        }
+
         public abstract string Name { get; }
 
         /**
