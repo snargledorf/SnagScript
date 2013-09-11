@@ -14,11 +14,15 @@ namespace SnagScriptInterpreter
         {
             Interpreter interpreter = new Interpreter();
 
+            interpreter.CustomFunctions.Add(new SquareFunction());
+            interpreter.CustomFunctions.Add(new ExitFunction());
+
             String scriptPath = "script.js";
             if (args.Length > 0)
             {
                 scriptPath = args[0];
             }
+
             interpreter.Execute(File.OpenRead(scriptPath));
         }
     }
