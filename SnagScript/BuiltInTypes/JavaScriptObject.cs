@@ -144,7 +144,7 @@ namespace SnagScript.BuiltInTypes
 
         public virtual JavaScriptBoolean Equals(JavaScriptObject obj, Scope scope, JavaScriptObject thisObject) 
         {
-            throw new NotImplementedException();
+            return JavaScriptBoolean.ValueOf(this == obj);
         }
     }
 }
