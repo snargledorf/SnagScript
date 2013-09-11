@@ -84,7 +84,7 @@ namespace SnagScript
         /**
          * Evaluate script
          *
-         * @param reader The reader that contains the script
+         * @param stream The stream that contains the script
          * @return The exit status
          * @throws IOException
          */

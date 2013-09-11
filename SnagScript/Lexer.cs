@@ -39,23 +39,23 @@ namespace SnagScript
 
         private int lineNo = 1;
         private int columnNo = 1;
-        private PeekReader inReader;
+        private PeekReader reader;
 
-        public Lexer(Stream inStream)
+        public Lexer(Stream stream)
         {
-            this.inReader = new PeekReader(inStream, 2);
+            this.reader = new PeekReader(stream, 2);
         }
 
         private char LookAhead(int i)
         {
-            return (char)inReader.Peek(i);
+            return (char)reader.Peek(i);
         }
 
         private int Read()
         {
             try
             {
-                int c = inReader.Read(); ;
+                int c = reader.Read(); ;
                 if (c == '\n')
                 {
                     lineNo++;
@@ -74,7 +74,7 @@ namespace SnagScript
         {
             try
             {
-                inReader.Close();
+                reader.Close();
             }
             catch (IOException)
             {
